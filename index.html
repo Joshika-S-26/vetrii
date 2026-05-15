@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Surprise</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #14001f, #2d004d, #ff0077);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+
+    nav h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      color: #ffd700;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 120px 10%;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      animation: fadeIn 0.8s ease;
+    }
+
+    section.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    }
+
+    .hero h2 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      animation: glow 2s infinite alternate;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      padding: 14px 30px;
+      background: linear-gradient(45deg, #5b3e03, #dfac80);
+      border: none;
+      border-radius: 40px;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.4s ease;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    }
+
+    .btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(255,255,255,0.7);
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #09176a40, 0 0 20px #09176a40;
+      }
+      to {
+        text-shadow: 0 0 20px #f4f3ec, 0 0 40px #f4f2ea;
+      }
+    }
+
+    .gallery {
+      background: linear-gradient(135deg, #240102, #592202, #472a01);
+    }
+
+    .gallery h2,
+    .message h2,
+    .memories h2,
+    .final h2 {
+      font-size: 3rem;
+      margin-bottom: 50px;
+      color: #dbb416;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      width: 100%;
+    }
+
+    .photo-card {
+      overflow: hidden;
+      border-radius: 20px;
+      position: relative;
+      transition: 0.4s;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .photo-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 25px rgba(255,255,255,0.6);
+    }
+
+    .message {
+      background: linear-gradient(135deg, #1e012a, #531675, #804cae);
+    }
+
+    .message-box {
+      max-width: 850px;
+      padding: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 25px;
+      backdrop-filter: blur(12px);
+      line-height: 2;
+      font-size: 1.2rem;
+      box-shadow: 0 0 25px rgba(255,255,255,0.2);
+    }
+
+    .memories {
+      background: linear-gradient(135deg, #000814, #001d3d, #003566);
+    }
+
+    .timeline {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .timeline-item {
+      margin: 30px 0;
+      padding: 25px;
+      border-left: 5px solid #ffd700;
+      background: rgba(255,255,255,0.08);
+      border-radius: 15px;
+      text-align: left;
+      transition: 0.4s;
+    }
+
+    .timeline-item:hover {
+      transform: translateX(10px);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .timeline-item h3 {
+      color: #ffd700;
+      margin-bottom: 10px;
+    }
+
+    .final {
+      background: linear-gradient(135deg, #240046, #ff006e, #ffbe0b);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final p {
+      font-size: 1.4rem;
+      max-width: 700px;
+      margin-bottom: 30px;
+    }
+
+    .heart {
+      position: absolute;
+      color: rgba(255,255,255,0.3);
+      font-size: 20px;
+      animation: float 8s linear infinite;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 1;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #000;
+      font-size: 0.9rem;
+    }
+
+    audio {
+      margin-top: 20px;
+      width: 320px;
+      border-radius: 30px;
+    }
+
+    @media(max-width: 768px) {
+      body {
+        overflow-x: hidden;
+      }
+
+      nav {
+        flex-direction: column;
+        padding: 15px 20px;
+        gap: 12px;
+      }
+
+      nav h1 {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      nav ul li a {
+        font-size: 0.9rem;
+      }
+
+      section {
+        padding: 110px 20px 70px;
+      }
+
+      .hero h2 {
+        font-size: 2.4rem;
+        line-height: 1.3;
+      }
+
+      .hero p {
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+
+      .gallery h2,
+      .message h2,
+      .memories h2,
+      .final h2 {
+        font-size: 2rem;
+      }
+
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-card img {
+        height: 280px;
+      }
+
+      .message-box {
+        padding: 25px;
+        font-size: 1rem;
+        line-height: 1.9;
+      }
+
+      .timeline-item {
+        padding: 20px;
+      }
+
+      .timeline-item h3 {
+        font-size: 1.1rem;
+      }
+
+      .final p {
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+
+      #wish {
+        font-size: 2rem !important;
+        text-align: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 320px;
+        padding: 14px 20px;
+        font-size: 1rem;
+      }
+
+      audio {
+        width: 100%;
+        max-width: 320px;
+      }
+    }
+
+    @media(max-width: 480px) {
+      .hero h2 {
+        font-size: 2rem;
+      }
+
+      nav ul {
+        gap: 10px;
+      }
+
+      nav ul li a {
+        font-size: 0.8rem;
+      }
+
+      .gallery h2,
+      .message h2,
+      .memories h2,
+      .final h2 {
+        font-size: 1.7rem;
+      }
+
+      .message-box {
+        padding: 20px;
+      }
+
+      .photo-card img {
+        height: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <h1>Happy Birthday 🎉</h1>
+    <ul>
+      <li><a href="#" onclick="nextPage('home')">Home</a></li>
+      <li><a href="#" onclick="nextPage('gallery')">Gallery</a></li>
+      <li><a href="#" onclick="nextPage('message')">Message</a></li>
+      <li><a href="#" onclick="nextPage('memories')">Memories</a></li>
+      <li><a href="#" onclick="nextPage('final')">Surprise</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page 1 -->
+  <section class="hero active" id="home">
+    <h2>Happy Birthday Vetrii! 🎂</h2>
+    <p>
+      Today is all about celebrating the amazing person you are. 
+      This surprise website is specially made to bring a smile to your face .
+    </p>
+
+    <button class="btn" onclick="nextPage('gallery')">
+      Next Page ➜
+    </button>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" autoplay loop>
+      <source src="audio.mpeg" type="audio/mp3">
+    </audio>
+   <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const music = document.getElementById("bgMusic");
+
+    // Try autoplay immediately
+    music.volume = 1;
+    music.play();
+
+    // iPhone/Chrome autoplay fix
+    document.body.addEventListener("touchstart", function () {
+        music.play();
+    }, { once: true });
+
+});
+</script>
+  </section>
+
+  <!-- Page 2 -->
+  <section class="gallery" id="gallery">
+    <button class="btn" style="margin-bottom:40px;" onclick="nextPage('message')">Next Page ➜</button>
+    <h2>The Best You 📸</h2>
+
+    <div class="photo-grid">
+      <div class="photo-card">
+        <img src="pic1.jpeg" alt="Friendship">
+      </div>
+
+      <div class="photo-card">
+        <img src="pic2.jpeg" alt="Birthday">
+      </div>
+
+      <div class="photo-card">
+        <img src="pic3.jpeg" alt="Friends">
+      </div>
+
+      <div class="photo-card">
+        <img src="pic4.jpeg" alt="Memory">
+      </div>
+    </div>
+
+    <script>
+  function createHeart() {
+    const activePage = document.querySelector('section.active');
+
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = '❤';
+
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+    heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+
+    activePage.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 10000);
+  }
+
+  setInterval(createHeart, 100);
+</script>
+
+  </section>
+
+  <!-- Page 3 -->
+  <section class="message" id="message">
+    <button class="btn" style="margin-bottom:40px;" onclick="nextPage('memories')">Next Page ➜</button>
+    <h2>A Special Message 💌</h2>
+
+    <div class="message-box">
+      <p>
+        Hey buddy,<br><br>
+
+        From crazy adventures to unforgettable memories, every moment with you has been awesome.
+        You are not just a friend — the best part.
+        Thank you for always being supportive, funny, and real.
+
+        I hope this year brings you endless happiness, success, and all the dreams you deserve.
+        Keep smiling, keep shining, and never change the amazing person you are.
+
+        Happy Birthday once again, Mann 🥳🔥
+      </p>
+    </div>
+  </section>
+
+  <!-- Page 4 -->
+  <section class="memories" id="memories">
+    <button class="btn" style="margin-bottom:40px;" onclick="nextPage('final')">Next Page ➜</button>
+    <h2>Memory Timeline ⏳</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>🎮 First Meeting</h3>
+        <p>
+          The day we met and the milkshake u bought me was unforgettable.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>🚗 Crazy Adventures</h3>
+        <p>
+          Our roamings and Where u let me to drive ur scooty and taught me to drive was great.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>🔥 Best Support System</h3>
+        <p>
+          Through every up and down, you always stood by my side.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>🎂 Another Awesome Birthday</h3>
+        <p>
+          I wish the upcoming year to be more happier and awsome to you.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 5 -->
+  <section class="final" id="final">
+    <h2>Final Birthday Surprise 🎁</h2>
+
+    <p>
+      You deserve all the happiness in the world.
+      May your life always stay colorful, successful, and full of joy.
+      This website is only a small reminder of how special you are.
+    </p>
+
+    <button class="btn" onclick="showWish()">
+      Click for Final Wish 💖
+    </button>
+
+    <h1 id="wish" style="margin-top:30px;font-size:3rem;color:#fff;"></h1>
+  </section>
+
+  <footer>
+    Made with ❤️ for your best friend | Happy Birthday 🎉
+  </footer>
+
+  <script>
+    function nextPage(pageId) {
+      const pages = document.querySelectorAll('section');
+
+      pages.forEach(page => {
+        page.classList.remove('active');
+      });
+
+      document.getElementById(pageId).classList.add('active');
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant'
+      });
+    }
+
+    function showWish() {
+      document.getElementById('wish').innerHTML = 'HAPPY BIRTHDAY VELUU✨';
+    }
+
+    // Floating hearts animation
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '❤';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+      heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+
+      document.querySelector('.final').appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 10000);
+    }
+
+    setInterval(createHeart, 400);
+
+    // Auto play music for mobile devices
+    window.addEventListener('load', () => {
+      const music = document.getElementById('bgMusic');
+
+      music.play().catch(() => {
+        document.body.addEventListener('click', () => {
+          music.play();
+        }, { once: true });
+      });
+    });
+  </script>
+
+</body>
+</html>
